@@ -16,8 +16,7 @@ app.set('x-powered-by', false);
 
 app.locals.title = 'NodePop';
 
-
-app.use(i18n.init)
+app.use(i18n.init);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
