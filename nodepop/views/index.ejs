@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="language" content="Spanish">
+    <meta name="author" content="Javier Girón López">
+    <meta name="Description" content="Practice corresponding to the Fundamentals Backend, Node.js & MongoDB module"> 
+    <title><%= title %></title>
+    <link rel='stylesheet' type='text/css' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="images/favicon.ico">
+    
+  </head>
+  <body>
+    <header>
+    <% include cabecera.ejs %>
+  </header>
+  <div class="TagList">
+    <% include tags.ejs %>
+  </div>
+  <div class="AdsList">
+    <h2>Anuncios disponibles</h2>
+    <div class="AdsListed">
+      <% if (anuncios.length > 0) { %>
+        <% anuncios.forEach(anuncio => { %>
+            <div class="anuncio">
+                <div class="article_name">
+                  <h3><p><%= anuncio.name %></p></h3>
+                </div>
+
+                <div class = "article_price">
+                  <% if (anuncio.sale) { %>
+                    <p>Precio de venta: <b><%= anuncio.price %> €</b></p>
+                  <% } else { %>
+                    <p>Se busca por: <b><%= anuncio.price %> €</b></p>
+                  <% } %>
+                <div class = "article_tag"></div>
+                  <p>Tags: "<%= anuncio.tag.join(', ') %>" </p>
+                </div>
+                
+                <div class = "article_image">
+                  <img src="<%= anuncio.photo %>" alt="Imagen descriptiva del artículo anunciado">
+                </div>
+            </div>
+
+            <% }) %>
+          <% }else { %>
+              <p> Lo sentimos, no existen anuncios de las características solicitadas.</p>
+          <% } %>
+    </div>
+  </div>
+  </body>
+</html>
