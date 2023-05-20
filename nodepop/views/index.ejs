@@ -18,7 +18,7 @@
     <% include tags.ejs %>
   </div>
   <div class="AdsList">
-    <h2>Anuncios disponibles</h2>
+    <h2><%= __('Available advertisements') %></h2>
     <div class="AdsListed">
       <% if (anuncios.length > 0) { %>
         <% anuncios.forEach(anuncio => { %>
@@ -29,9 +29,9 @@
 
                 <div class = "article_price">
                   <% if (anuncio.sale) { %>
-                    <p>Precio de venta: <b><%= anuncio.price %> €</b></p>
+                    <p><%= __('Selling price') %>: <b><%= anuncio.price %> €</b></p>
                   <% } else { %>
-                    <p>Se busca por: <b><%= anuncio.price %> €</b></p>
+                    <p><%= __('Wanted for') %>: <b><%= anuncio.price %> €</b></p>
                   <% } %>
                 <div class = "article_tag"></div>
                   <p>Tags: "<%= anuncio.tag.join(', ') %>" </p>
@@ -48,5 +48,6 @@
           <% } %>
     </div>
   </div>
-  </body>
-</html>
+  <footer>
+  <% include pie.ejs %>
+

@@ -60,3 +60,13 @@ header p {
 .article_image {
   grid-column: 2;
 }
+
+footer {
+  text-align: center;
+}
+
+footer p{
+  text-align: right;
+  font-size: larger;
+  margin-right: 50px;
+}

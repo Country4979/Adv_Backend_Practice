@@ -1,5 +1,5 @@
-# Practica_Fund_Backend
-Practice corresponding to the Fundamentals Backend, Node.js &amp; MongoDB module
+# ADVANCED BACKEND PRACTICE
+Practice corresponding to the Advanced Backend Practice, Node.js &amp; MongoDB module.
 
 ## General info
 
@@ -44,6 +44,10 @@ Script development mode set to cross-platform with croos-env, and default starts
 "dev": "cross-env SET DEBUG=nodepop:* 3000 nodemon ./bin/www"
 ```
 
+Copy .env.example to .env and customize your variables.
+
+```sh
+cp .env
 
 #### Create a connection file with mongoose
 
@@ -83,8 +87,18 @@ Open a terminal and go to the API path "../nodepop>" and type "npm run initDB" t
 
 ## API starts
 
-Open a terminal and go to the API path "../nodepop>" and type "npm start" to run the API.
-For developer mode, type "npm run dev" to start server.
+Open a terminal and go to the API path "../nodepop>" 
+
+```sh
+npm start 
+```
+
+For developer mode, type 
+
+```sh
+npm run dev
+```
+
 
 ### Homepage
 
@@ -134,6 +148,8 @@ http://localhost:3000/?tag=Work&price=50
 For add others use a software like Postman. Select POST method, option "Body" and "x-www-form-urlencoded".
 Then, type the keys and values:
 name (text), sale (true o false), price (Number between 1 and 10000), photo (../images/anuncios/filename.extension) and tag (Work, Lifestyle, Motor, Mobile).
+
+
 
 
 
