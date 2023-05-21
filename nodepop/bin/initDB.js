@@ -1,30 +1,45 @@
 'use strict';
-const fs = require('fs')
-const Anuncio = require('../models/Anuncio');
+const fs = require('fs');
+const { Anuncio, Usuario } = require('../models');
 const connection = require('../lib/connectMongoose');
-const path = require('path')
-const anuncioData = fs.readFileSync(path.join(__dirname, '../routes/api/anuncios-json.json'))
-const init = JSON.parse(anuncioData)
+const path = require('path');
+const anuncioData = fs.readFileSync(
+    path.join(__dirname, '../routes/api/anuncios-json.json')
+);
+const init = JSON.parse(anuncioData);
 
-main().catch(err => console.log('Hubo un error: ', err));
+main().catch((err) => console.log('Hubo un error: ', err));
 
 async function main() {
+    // Initialise Anuncios collection
+    await initAnuncios();
 
-  // inicializamos colección de anuncios
-  await initAnuncios();
+    await initUsuarios();
 
-  connection.close();
-
+    connection.close();
 }
 
 async function initAnuncios() {
+    // Delete all documents in the Anuncios collection
+    const deleted = await Anuncio.deleteMany();
+    console.log(`Eliminados ${deleted.deletedCount} anuncios.`);
 
-  // borra todos los documentos de la colección anuncios
-  const deleted = await Anuncio.deleteMany();
-  console.log(`Eliminados ${deleted.deletedCount} anuncios.`);
+    // Create initial advertisements
+    const inserted = await Anuncio.insertMany(init);
 
-  // crear anuncios iniciales
-  const inserted = await Anuncio.insertMany(init)
+    console.log(`Creados ${inserted.length} anuncios`);
+}
 
-  console.log(`Creados ${inserted.length} anuncios`);
+async function initUsuarios() {
+    // Deletes all users from the Usuarios collection
+    const deleted = await Usuario.deleteMany();
+    console.log(`Eliminados ${deleted.deletedCount} usuarios.`);
+
+    // Create initial users
+    const inserted = await Usuario.insertMany([
+        { email: 'admin@example.com', password: '1234' },
+        { email: 'user@example.com', password: '1234' },
+    ]);
+
+    console.log(`Creados ${inserted.length} usuarios`);
 }

@@ -82,8 +82,18 @@ In the console go to MongoDB folder and:
 
 ## DB resets
 
-Open a terminal and go to the API path "../nodepop>" and type "npm run initDB" to run the API.
-6 ads must been created.
+Open a terminal and go to the API path "../nodepop>" and type:
+
+```sh
+npm run initDB
+```
+ to reset documents from DB.
+
+2 users and 6 ads must been created.
+
+The users mails and passwords are:
+    1.- admin@example.com
+    2.- user@example.com
 
 ## API starts
 
