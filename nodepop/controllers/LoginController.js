@@ -2,7 +2,6 @@ const { Usuario } = require('../models');
 const jwt = require('jsonwebtoken');
 
 class LoginController {
-
     async postAPI(req, res, next) {
         try {
             const { email, password } = req.body;
@@ -14,11 +13,15 @@ class LoginController {
             }
 
             //JWT creation with jsonwebtoken library
-            const token = await jwt.sign({_id: usuario._id }, process.env.JWT_SECRET, {
-                expiresIn: '2d'
-            })
+            const token = await jwt.sign(
+                { _id: usuario._id },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: '2d',
+                }
+            );
 
-            res.jason({ jwt: {token} });
+            res.jason({ jwt: { token } });
         } catch (error) {
             next(error);
         }

@@ -9,6 +9,7 @@ img {
 }
 header{
   text-align: center;
+  margin-top: 105px;
 }
 
 header h1{
@@ -3683,6 +3684,7 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  z-index: 0 !important;
 }
 
 .nav-link {
