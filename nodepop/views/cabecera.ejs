@@ -16,7 +16,7 @@
         <a class="navbar-brand fw-bold" href="/"><%= title %></a>
 
         <% getLocales().forEach(locale =>{ %>
-            <a href="/change-locale/<%= locale %>"><%= locale %></a>&nbsp;
+            <a class="nav-link me-lg-3" href="/change-locale/<%= locale %>"><%= locale %></a>&nbsp;
         <% })%>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,9 @@
             </div>
     </div>
 </nav>
-    <header>
-        <h1><%= title %></h1>
+<header>
+    <div>
+        
+    </div>
         <p><%= __('Welcome to') %> <%= title %></p>
-    </header>
+</header>
