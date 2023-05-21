@@ -23,24 +23,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const loginController = new LoginController()
+const loginController = new LoginController();
 
 /**
  * API routes
-*/
+ */
 app.use('/api/anuncios', require('./routes/api/anuncios'));
-app.post('/api/login', loginController.postAPI)
+app.post('/api/authenticate', loginController.postAPI);
 
 app.use(i18n.init);
 /**
  * Website routes
-*/
+ */
 app.use('/', require('./routes/api/anuncios'));
 app.use('/users', require('./routes/users'));
-app.use('/change-locale', require('./routes/change-locale'))
-/*app.get('/login', loginController.index);
-app.post('/login', loginController.post);
-app.get('/logout', loginController.logout);*/
+app.use('/change-locale', require('./routes/change-locale'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

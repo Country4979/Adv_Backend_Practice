@@ -1,12 +1,7 @@
-const { Usuario } = require('../models/Usuario');
+const { Usuario } = require('../models');
 const jwt = require('jsonwebtoken');
 
 class LoginController {
-    index(req, res, next) {
-        res.locals.error = '';
-        res.locals.email = '';
-        res.render('login');
-    }
 
     async postAPI(req, res, next) {
         try {
@@ -15,7 +10,7 @@ class LoginController {
             const usuario = await Usuario.findOne({ email: email });
 
             if (!usuario || !(await usuario.comparePassword(password))) {
-                res.jason({ error: 'invalid credentials' });
+                res.json({ error: 'invalid credentials' });
             }
 
             //JWT creation with jsonwebtoken library
