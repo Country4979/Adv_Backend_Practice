@@ -8,23 +8,24 @@ class LoginController {
 
             const usuario = await Usuario.findOne({ email: email });
 
-            if (!usuario || !(await usuario.comparePassword(password))) {
-                res.json({ error: 'invalid credentials' });
+            if (/*!usuario ||*/ !(await usuario.comparePassword(password))) {
+                res.json({ error: 'Invalid credentials' });
                 return;
             }
 
             //JWT creation with jsonwebtoken library
             const token = await jwt.sign(
                 { _id: usuario._id },
-                process.env.JWT_SECRET,
+                'Xh3WKC3H9WjvpsJvtbMmUWtqT4wmhUy8',
+                //process.env.JWT_SECRET,
                 {
                     expiresIn: '2d',
                 }
             );
 
-            res.json({ jwt: { token } });
-        } catch (error) {
-            next(error);
+            res.json({ jwt: token });
+        } catch (err) {
+            next(err);
         }
     }
 }
