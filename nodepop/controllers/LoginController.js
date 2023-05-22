@@ -10,6 +10,7 @@ class LoginController {
 
             if (!usuario || !(await usuario.comparePassword(password))) {
                 res.json({ error: 'invalid credentials' });
+                return;
             }
 
             //JWT creation with jsonwebtoken library

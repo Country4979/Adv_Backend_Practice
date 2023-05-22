@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 
 // Define the ads scheme
 const anuncioSchema = mongoose.Schema({
-    name: String,
-    sale: Boolean,
-    price: { type: Number, min: 0.1, max: 10000 },
+    name: {type: String, index: true},
+    sale: {type: Boolean, index: true},
+    price: { type: Number, min: 0.1, max: 10000, index: true },
     photo: String,
-    tag: [String]
+    tag: {type: [String], index: true}
     });
 
 // Define the filter list
