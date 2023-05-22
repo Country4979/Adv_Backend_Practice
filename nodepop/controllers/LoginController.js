@@ -8,7 +8,7 @@ class LoginController {
 
             const usuario = await Usuario.findOne({ email: email });
 
-            if (/*!usuario ||*/ !(await usuario.comparePassword(password))) {
+            if (!usuario || !(await usuario.comparePassword(password))) {
                 res.json({ error: 'Invalid credentials' });
                 return;
             }
@@ -16,8 +16,7 @@ class LoginController {
             //JWT creation with jsonwebtoken library
             const token = await jwt.sign(
                 { _id: usuario._id },
-                'Xh3WKC3H9WjvpsJvtbMmUWtqT4wmhUy8',
-                //process.env.JWT_SECRET,
+                process.env.JWT_SECRET,
                 {
                     expiresIn: '2d',
                 }

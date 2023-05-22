@@ -21,6 +21,12 @@ npm install
 npm i cross-env
 ```
 
+### Install dotenv:
+
+```sh
+npm i dot-env
+```
+
 #### Install Mongoose
 
 In API path:
@@ -145,7 +151,7 @@ http://localhost:3000/api/anuncios?tag=value
 http://localhost:3000/?tag=value
 
 You need type uppercase the first letter of the tag. You can see a list of available tags at the top of the page.
-You can add mora than 1 tag dor searching:
+You can add mora than 1 tag f       or searching:
 
 http://localhost:3000/api/anuncios?tag=value1&tag=valu2
 

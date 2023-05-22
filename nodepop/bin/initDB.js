@@ -37,8 +37,18 @@ async function initUsuarios() {
 
     // Create initial users
     const inserted = await Usuario.insertMany([
-        { email: 'admin@example.com', password: '1234' },
-        { email: 'user@example.com', password: '1234' },
+        {
+            email: 'admin@example.com',
+            password: await Usuario.hashPassword('1234'),
+        },
+        {
+            email: 'user@example.com',
+            password: await Usuario.hashPassword('1234'),
+        },
+        {
+            email: 'usuario@example.com',
+            password: await Usuario.hashPassword('1234'),
+        },
     ]);
 
     console.log(`Creados ${inserted.length} usuarios`);

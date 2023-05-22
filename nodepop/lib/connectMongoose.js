@@ -11,5 +11,5 @@ mongoose.connection.once('open', () => {
 });
 
 mongoose.connect('mongodb://127.0.0.1:27017/nodepop');
-//mongoose.connect(process.env.MONGODB_CONNECTION_STR); --> No está funcionando
+//mongoose.connect(process.env.MONGODB_CONNECTION_STR);
 module.exports = mongoose.connection;
