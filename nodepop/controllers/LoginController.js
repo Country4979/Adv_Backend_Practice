@@ -22,7 +22,7 @@ class LoginController {
                 }
             );
 
-            res.jason({ jwt: { token } });
+            res.json({ jwt: { token } });
         } catch (error) {
             next(error);
         }
