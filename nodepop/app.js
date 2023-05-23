@@ -6,7 +6,7 @@ var logger = require('morgan');
 const i18n = require('./lib/i18nConfigure');
 const LoginController = require('./controllers/LoginController');
 const jwtAuthMiddleware = require('./lib/jwtAuthMiddleware');
-const cote = require('cote');
+const { Requester } = require('cote');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
@@ -45,6 +45,19 @@ app.post('/profile', upload.single('foto'), function (req, res, next) {
             createError(2, __('An error occurred during the upload.'));
         }
     });
+});
+
+//Llamar al microservico
+const requester = new Requester({ name: 'nodepop' });
+
+//Evento de petición de thumbnail. Es lo que pide la app al microservicio
+const event = {
+    type: 'Thumbnail conversion',
+    name: 'Thumbnail conversion',
+};
+
+requester.send(event, (resultado) => {
+    console.log(Date.now(), 'nodepop obtiene resultado: ', resultado);
 });
 
 app.use(i18n.init);
