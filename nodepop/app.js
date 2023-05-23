@@ -40,6 +40,21 @@ app.post('/api/authenticate', loginController.postAPI);
 app.post('/profile', upload.single('foto'), function (req, res, next) {
     // req.file es el archivo del `avatar`
     // req.body contendrá los campos de texto, si los hubiera.
+    
+    //Llamar al microservico
+    const requester = new Requester({ name: 'nodepop' });
+    
+    //Evento de petición de thumbnail.
+    const event = {
+        type: 'Thumbnail conversion',
+        name: 'Thumbnail conversion',
+        buffer: req.file.buffer,
+    };
+    
+    requester.send(event, (resultado) => {
+        console.log(Date.now(), 'nodepop obtiene resultado: ', resultado);
+    });
+    
     upload(req, res, function (err) {
         if (err) {
             createError(2, __('An error occurred during the upload.'));
@@ -47,18 +62,7 @@ app.post('/profile', upload.single('foto'), function (req, res, next) {
     });
 });
 
-//Llamar al microservico
-const requester = new Requester({ name: 'nodepop' });
 
-//Evento de petición de thumbnail. Es lo que pide la app al microservicio
-const event = {
-    type: 'Thumbnail conversion',
-    name: 'Thumbnail conversion',
-};
-
-requester.send(event, (resultado) => {
-    console.log(Date.now(), 'nodepop obtiene resultado: ', resultado);
-});
 
 app.use(i18n.init);
 /**

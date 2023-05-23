@@ -12,23 +12,23 @@ const responder = new Responder({
     name: 'The Image Conversion Service',
 });
 
-responder.on('Thumbnail conversion', (req, done) => {
-    const { name } = req;
-
-    console.log(Date.now(), 'Service:', name);
-
-    //Hacer la conversión
-
-    const imgeThumbnail = async () => {
-        // Read the image.
-        const image = await jimp.read('test/image.png'); //<-- Obtener el archivo de la ruta que le digamos
+//Lógica de la conversión
+responder.on('Thumbnail conversion', async (req, cb) => {
+    try {
+        const { name } = req;
+        console.log(Date.now(), 'Service:', name);
+        // Read the image from buffer.
+        const image = await jimp.read(req.buffer); //<-- Obtener el archivo de la ruta que le digamos
 
         //Resize image method
         image.resize(100, 100, jimp.RESIZE_BEZIER);
 
         // Save the image
-        await image.writeAsync('public/thumbnails/small_' + file.filename); //Poner algo así como 'small_'+nombre original del archivo
-    };
+        const thumbnail = await image.writeAsync(
+            'public/thumbnails/small_' + file.filename
+        ); //Poner algo así como 'small_'+nombre original del archivo
+        cb(null, thumbnail);
+    } catch (error) {
+        cb(error, 'Se ha producio un error');
+    }
 });
-
-async function imgeThumbnail() {}
