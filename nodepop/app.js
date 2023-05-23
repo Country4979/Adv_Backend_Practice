@@ -6,11 +6,16 @@ var logger = require('morgan');
 const i18n = require('./lib/i18nConfigure');
 const LoginController = require('./controllers/LoginController');
 const jwtAuthMiddleware = require('./lib/jwtAuthMiddleware');
-require('dotenv').config();
+const cote = require('cote');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
+require('dotenv').config();
 require('./lib/connectMongoose');
 
 var app = express();
+
+//AÑADIR MICROSERVICO PARA CAMBIAR EL TAMAÑO DE LAS FOTOS CON JIMP
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +37,15 @@ const loginController = new LoginController();
  */
 app.use('/api/anuncios', jwtAuthMiddleware, require('./routes/api/anuncios')); //Protecting endpoint with jwtAuthMiddleware
 app.post('/api/authenticate', loginController.postAPI);
+app.post('/profile', upload.single('foto'), function (req, res, next) {
+    // req.file es el archivo del `avatar`
+    // req.body contendrá los campos de texto, si los hubiera.
+    upload(req, res, function (err) {
+        if (err) {
+            createError(2, __('An error occurred during the upload.'));
+        }
+    });
+});
 
 app.use(i18n.init);
 /**

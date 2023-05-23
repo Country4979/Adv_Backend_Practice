@@ -27,6 +27,18 @@ npm i cross-env
 npm i dot-env
 ```
 
+### Install cote:
+
+```sh
+npm i cote
+```
+
+### Install multer:
+
+```sh
+npm i multer
+```
+
 #### Install Mongoose
 
 In API path:

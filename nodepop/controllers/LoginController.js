@@ -12,7 +12,7 @@ class LoginController {
                 res.json({ error: 'Invalid credentials' });
                 return;
             }
-
+            
             //JWT creation with jsonwebtoken library
             const token = await jwt.sign(
                 { _id: usuario._id },
