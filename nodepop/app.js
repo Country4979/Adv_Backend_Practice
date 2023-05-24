@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const loginController = new LoginController();
 
 //Llamar al microservico
-const requester = new Requester({ name: 'Nodepop' });
+const requester = new Requester({ name: 'Nodepop ' });
 
 /**
  * API routes
@@ -61,8 +61,6 @@ app.post('/profile', upload.single('photo'), function (req, res, next) {
             res.status(500).send(err.message);
         } else {
             console.log(Date.now(), 'Nodepop obtiene resultado: ', thumbnail);
-
-            res.send(thumbnail);
         }
     });
 
