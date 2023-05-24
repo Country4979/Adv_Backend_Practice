@@ -1,6 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
+var path = require('node:path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const i18n = require('./lib/i18nConfigure');
@@ -32,37 +32,41 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const loginController = new LoginController();
 
+//Llamar al microservico
+const requester = new Requester({ name: 'Nodepop' });
+
 /**
  * API routes
  */
 app.use('/api/anuncios', jwtAuthMiddleware, require('./routes/api/anuncios')); //Protecting endpoint with jwtAuthMiddleware
 app.post('/api/authenticate', loginController.postAPI);
-app.post('/profile', upload.single('foto'), function (req, res, next) {
-    // req.file es el archivo del `avatar`
-    // req.body contendrá los campos de texto, si los hubiera.
-    
-    //Llamar al microservico
-    const requester = new Requester({ name: 'nodepop' });
-    
-    //Evento de petición de thumbnail.
-    const event = {
-        type: 'Thumbnail conversion',
-        name: 'Thumbnail conversion',
-        buffer: req.file.buffer,
-    };
-    
-    requester.send(event, (resultado) => {
-        console.log(Date.now(), 'nodepop obtiene resultado: ', resultado);
-    });
-    
+
+app.post('/profile', upload.single('photo'), function (req, res, next) {
     upload(req, res, function (err) {
         if (err) {
             createError(2, __('An error occurred during the upload.'));
         }
     });
+    console.log('Esto es app.post');
+    //Evento de petición de thumbnail.
+    const event = {
+        type: 'Thumbnail conversion',
+        name: 'Thumbnail conversion',
+        path: req.file.path,
+    };
+    console.log('Esto es event', event);
+    requester.send(event, (err, thumbnail) => {
+        console.log('Mandado evento de creación de thumbnail con la imagen');
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            console.log(Date.now(), 'Nodepop obtiene resultado: ', thumbnail);
+
+            res.send(thumbnail);
+        }
+    });
+
 });
-
-
 
 app.use(i18n.init);
 /**
@@ -80,7 +84,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-
+    
     //If it's an API request that failed, I return the error in JSON format
 
     if (req.originalUrl.startsWith('/api/')) {

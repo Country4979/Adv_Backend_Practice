@@ -91,7 +91,7 @@ router.get('/:price', async (req, res, next) => {
     }
 });
 
-// Create an advertisement  --> LA FOTO DEBE COGERLA DE PUBLIC THUMBNAILS
+// Create an advertisement
 router.post('/', upload.single('photo'), async (req, res, next) => {
     try {
         const anuncioData = req.body;
