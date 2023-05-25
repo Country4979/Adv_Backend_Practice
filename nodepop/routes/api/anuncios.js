@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Anuncio = require('../../models/Anuncio');
 const upload = require('../../lib/upLoadConfigure');
+const { Requester } = require('cote');
 
 // Returns a list of ads
 router.get('/', async (req, res, next) => {
@@ -93,6 +94,7 @@ router.get('/:price', async (req, res, next) => {
 
 // Create an advertisement
 router.post('/', upload.single('photo'), async (req, res, next) => {
+    const requester = new Requester({ name: 'Nodepop' });
     try {
         const anuncioData = req.body;
 
@@ -107,6 +109,27 @@ router.post('/', upload.single('photo'), async (req, res, next) => {
         // Persist in the DB the created instance
 
         const anuncioPersistido = await anuncio.save();
+
+        const event = {
+            type: 'Thumbnail conversion',
+            name: 'Thumbnail Conversion',
+            filepath: req.file.path,
+        };
+
+        requester.send(event, (err, thumbnailRoute) => {
+            console.log(
+                'Mandado evento de creación de thumbnail con la imagen'
+            );
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                console.log(
+                    Date.now(),
+                    'Nodepop obtiene thumbnail: ',
+                    thumbnailRoute
+                );
+            }
+        });
 
         res.json({ result: anuncioPersistido });
         console.log(`Ad created successfully`);

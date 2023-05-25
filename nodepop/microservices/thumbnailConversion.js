@@ -17,6 +17,7 @@ responder.on('Thumbnail conversion', async (req, cb) => {
         const filenames = path.basename(filepath);
         const nameReSized = 'small_' + filenames;
         const thumbnailRoute = route + nameReSized;
+        
         console.log(thumbnailRoute)
         console.log(Date.now(), 'Service:', name);
         //Read the image from path.
