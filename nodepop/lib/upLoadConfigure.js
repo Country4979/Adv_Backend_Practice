@@ -4,7 +4,7 @@ const path = require('node:path');
 //Upload configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        const ruta = path.join(__dirname, '..', 'uploads');
+        const ruta = path.join(__dirname, '..', 'public', 'uploads');
         cb(null, ruta);
     },
     filename: function (res, file, cb) {
