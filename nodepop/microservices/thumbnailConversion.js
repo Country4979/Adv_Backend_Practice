@@ -28,8 +28,8 @@ responder.on('Thumbnail conversion', async (req, cb) => {
         console.log('Conversión realizada correctamente')
 
         const thumbnail = await image.writeAsync(thumbnailRoute);
-        console.log('Thumnail guardado?')
-        cb(thumbnailRoute);
+        console.log('Thumnail saved in: ' + thumbnailRoute)
+        cb(null, nameReSized);
     } catch (error) {
         cb(error);
     }

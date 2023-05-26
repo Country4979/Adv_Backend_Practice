@@ -118,7 +118,8 @@ router.post('/', upload.single('photo'), async (req, res, next) => {
 
         requester.send(event, (err, thumbnailRoute) => {
             console.log(
-                'Mandado evento de creación de thumbnail con la imagen'
+                'Sent thumbnail creation event with the image: ' +
+                    req.file.originalname
             );
             if (err) {
                 res.status(500).send(err.message);
