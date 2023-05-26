@@ -127,6 +127,12 @@ For developer mode, type
 npm run dev
 ```
 
+For starts microservices, open a new terminal, enter in microservices folder and type:
+
+```sh
+npx nodemon thumbnailConversion.js
+```
+
 
 ### Homepage
 
