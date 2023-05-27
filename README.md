@@ -183,6 +183,12 @@ For add others use a software like Postman. Select POST method, option "Body" an
 Then, type the keys and values:
 name (text), sale (true o false), price (Number between 1 and 10000), photo (../images/anuncios/filename.extension) and tag (Work, Lifestyle, Motor, Mobile).
 
+### Testing the App
+
+User: testuser@example.com
+
+PAssword: testpassword
+
 
 
 

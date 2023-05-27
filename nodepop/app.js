@@ -11,6 +11,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 require('dotenv').config();
+const MONGODB_CONNECTION_STR = process.env.MONGODB_CONNECTION_STR
 require('./lib/connectMongoose');
 
 var app = express();
