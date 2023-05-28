@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "cross-env DEBUG=nodepop:* nodemon ./bin/www",
     "initDB": "node ./bin/initDB",
-    "test": "node ./test/test"
+    "test": "mocha"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
